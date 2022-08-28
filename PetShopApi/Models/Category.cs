@@ -14,5 +14,7 @@ namespace PetShopApi.Models
 
         [BsonRequired]
         public DateTime CreationDate { get; set; }
-    }
+
+        //TODO: Adicionar LastUpdated e implementar CreationDate corretamente
+    }    
 }

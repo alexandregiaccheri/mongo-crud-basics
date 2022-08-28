@@ -8,6 +8,8 @@
 
         Task<List<Category>> GetAllCategoriesAsync();
 
+        //TODO: Adicionar GetCategory()
+
         Task<Category> UpdateCategoryAsync(string id, Category category);
     }
 }
