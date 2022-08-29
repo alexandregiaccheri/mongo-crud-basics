@@ -18,6 +18,8 @@ namespace PetShopApi.Services
 
         public async Task<Category> CreateCategoryAsync(Category category)
         {
+            category.CreationDate = DateTime.Now;
+            category.LastUpdated = DateTime.Now;
             await _categoryCollection.InsertOneAsync(category);
             return category;
         }
@@ -46,7 +48,8 @@ namespace PetShopApi.Services
             var filter = Builders<Category>.Filter.Eq(c => c.Id, id);
             var result =
             await _categoryCollection.UpdateOneAsync(filter, Builders<Category>
-                .Update.Set(c => c.CategoryName, category.CategoryName));
+                .Update.Set(c => c.CategoryName, category.CategoryName)
+                       .Set(c => c.LastUpdated, DateTime.Now));
             return await _categoryCollection.Find(filter).SingleOrDefaultAsync();
         }
     }
