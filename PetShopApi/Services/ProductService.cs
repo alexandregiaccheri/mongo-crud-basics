@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using PetShopApi.Models;
@@ -10,7 +9,7 @@ namespace PetShopApi.Services
     {
         private readonly IMongoCollection<Product> _productCollection;
 
-        public ProductService(IOptions<MongoDbSettings> mongoDbSettings, UserService userService)
+        public ProductService(IOptions<MongoDbSettings> mongoDbSettings)
         {
             var mongoClient = new MongoClient(mongoDbSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(mongoDbSettings.Value.DatabaseName);

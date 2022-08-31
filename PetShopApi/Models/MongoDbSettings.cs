@@ -10,6 +10,8 @@
 
         public string DatabaseName { get; set; } = null!;
 
+        public string OrderCollection { get; set; } = null!;
+
         public string ProductCollection { get; set; } = null!;
 
         public string UserCollection { get; set; } = null!;
