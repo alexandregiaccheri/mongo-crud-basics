@@ -52,6 +52,6 @@ namespace PetShopApi.Services
                        .Set(u => u.UserEmail, user.UserEmail)
                        .Set(u => u.LastUpdated, DateTime.Now));
             return await _userCollection.Find(filter).SingleOrDefaultAsync();
-        }
+        }        
     }
 }

@@ -52,7 +52,7 @@ namespace PetShopApi.Controllers
             var result = await _userService.GetUserAsync(id);
             if (result == null)
                 return NotFound();
-            return await _userService.UpdateUserAsync(id, user);
+            return Ok(await _userService.UpdateUserAsync(id, user));
         }
     }
 }

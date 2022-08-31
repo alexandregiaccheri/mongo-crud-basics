@@ -6,6 +6,9 @@ namespace PetShopApi.Models
     public class Product
     {
         [BsonRequired]
+        public string CategoryId { get; set; } = null!;
+
+        [BsonRequired]
         public DateTime CreationDate { get; set; }
 
         [BsonId]
@@ -17,13 +20,13 @@ namespace PetShopApi.Models
 
         [BsonRequired]
         public DateTime LastUpdated { get; set; }
-
-        [BsonRequired]
-        public string Manufacturer { get; set; } = null!;
         
         [BsonRequired]
         public string ProductDescription { get; set; } = null!;
         
+        [BsonRequired]
+        public string ProductManufacturer { get; set; } = null!;
+
         [BsonRequired]
         public int ProductPrice { get; set; }
 
