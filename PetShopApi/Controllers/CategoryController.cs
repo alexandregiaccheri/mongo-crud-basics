@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetShopApi.Models;
+using PetShopApi.Models.DTO;
 using PetShopApi.Services;
 
 namespace PetShopApi.Controllers
@@ -13,12 +14,12 @@ namespace PetShopApi.Controllers
         public CategoryController(CategoryService categoryService)
         {
             _categoryService = categoryService;
-        }
+        }        
 
         [HttpPost]
-        public async Task<ActionResult<Category>> CreateCategory([FromBody] Category category)
+        public async Task<ActionResult<Category>> CreateCategory([FromBody] CategoryDTO dto)
         {
-            return Ok(await _categoryService.CreateCategoryAsync(category));
+            return Ok(await _categoryService.CreateCategoryAsync(dto));
         }
 
         [HttpDelete("{id}")]
@@ -47,12 +48,12 @@ namespace PetShopApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<ActionResult<Category>> UpdateCategory(string id, [FromBody] Category category)
+        public async Task<ActionResult<Category>> UpdateCategory(string id, [FromBody] CategoryDTO dto)
         {
-            var result = await _categoryService.GetCategoryAsync(id);
-            if (result == null)
+            var category = await _categoryService.GetCategoryAsync(id);
+            if (category == null)
                 return NotFound();
-            return await _categoryService.UpdateCategoryAsync(id, category);
+            return await _categoryService.UpdateCategoryAsync(id, category, dto);
         }
     }
 }

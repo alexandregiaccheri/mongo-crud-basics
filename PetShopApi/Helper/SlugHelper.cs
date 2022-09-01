@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace PetShopApi.Helper
 {
@@ -22,7 +23,8 @@ namespace PetShopApi.Helper
 
         public static string RemoveAccent(this string txt)
         {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            byte[] bytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(txt);
             return System.Text.Encoding.ASCII.GetString(bytes);
         }
     }

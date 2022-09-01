@@ -1,8 +1,10 @@
-﻿namespace PetShopApi.Services
+﻿using PetShopApi.Models.DTO;
+
+namespace PetShopApi.Services
 {
     public interface ICategoryService<Category>
     {
-        Task<Category> CreateCategoryAsync(Category category);
+        Task<Category> CreateCategoryAsync(CategoryDTO dto);
 
         Task<Category> DeleteCategoryAsync(string id);
 
@@ -10,6 +12,6 @@
 
         Task<Category> GetCategoryAsync(string id);
 
-        Task<Category> UpdateCategoryAsync(string id, Category category);
+        Task<Category> UpdateCategoryAsync(string id, Category category, CategoryDTO dto);
     }
 }

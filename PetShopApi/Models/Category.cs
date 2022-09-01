@@ -6,10 +6,10 @@ namespace PetShopApi.Models
     public class Category
     {
         [BsonRequired]
-        public DateTime CreationDate { get; set; }
+        public string CategoryName { get; set; } = null!;
 
         [BsonRequired]
-        public string CategoryName { get; set; } = null!;
+        public DateTime CreationDate { get; set; }
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
