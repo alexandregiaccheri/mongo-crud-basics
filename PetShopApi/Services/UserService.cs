@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using PetShopApi.Models;
+using PetShopApi.Models.DTO;
 
 namespace PetShopApi.Services
 {
@@ -16,12 +17,17 @@ namespace PetShopApi.Services
             _userCollection = mongoDatabase.GetCollection<User>(mongoDbSettings.Value.UserCollection);
         }
 
-        public async Task<User> CreateUserAsync(User user)
+        public async Task<User> CreateUserAsync(UserDTO dto)
         {
-            user.CreationDate = DateTime.Now;
-            user.LastUpdated = DateTime.Now;
+            var user = new User()
+            {
+                CreationDate = DateTime.Now,
+                LastUpdated = DateTime.Now,
+                UserEmail = dto.UserEmail!,
+                UserName = dto.UserName!
+            };
             await _userCollection.InsertOneAsync(user);
-            return user;
+            return user;           
         }
 
         public async Task<User> DeleteUserAsync(string id)
@@ -43,15 +49,36 @@ namespace PetShopApi.Services
             return await _userCollection.Find(filter).SingleOrDefaultAsync();
         }
 
-        public async Task<User> UpdateUserAsync(string id, User user)
+        public async Task<User> UpdateUserAsync(string id, User user, UserDTO dto)
         {
             var filter = Builders<User>.Filter.Eq(u => u.Id, id);
-            var result =
-            await _userCollection.UpdateOneAsync(filter, Builders<User>
-                .Update.Set(u => u.UserName, user.UserName)
-                       .Set(u => u.UserEmail, user.UserEmail)
-                       .Set(u => u.LastUpdated, DateTime.Now));
+            var changesWereMade = false;
+
+            if (dto.UserEmail != null &&
+                dto.UserEmail != string.Empty &&
+                dto.UserEmail != "string" &&
+                dto.UserEmail != user.UserEmail)
+            {
+                await _userCollection.UpdateOneAsync(filter, Builders<User>
+                    .Update.Set(u => u.UserEmail, dto.UserEmail));
+                changesWereMade = true;
+            }
+
+            if (dto.UserName != null &&
+                dto.UserName != string.Empty &&
+                dto.UserName != "string" &&
+                dto.UserName != user.UserName)
+            {
+                await _userCollection.UpdateOneAsync(filter, Builders<User>
+                    .Update.Set(u => u.UserName, dto.UserName));
+                changesWereMade = true;
+            }
+
+            if (changesWereMade)
+                await _userCollection.UpdateOneAsync(filter, Builders<User>
+                    .Update.Set(u => u.LastUpdated, DateTime.Now));
+
             return await _userCollection.Find(filter).SingleOrDefaultAsync();
-        }        
+        }
     }
 }

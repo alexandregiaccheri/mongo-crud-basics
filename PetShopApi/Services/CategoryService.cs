@@ -26,7 +26,7 @@ namespace PetShopApi.Services
                 CreationDate = DateTime.Now,
                 LastUpdated = DateTime.Now,
                 Slug = SlugHelper.RemoveAccent(SlugHelper.GenerateSlug(dto.CategoryName))
-            };                        
+            };
             await _categoryCollection.InsertOneAsync(category);
             return category;
         }
@@ -55,7 +55,7 @@ namespace PetShopApi.Services
             var filter = Builders<Category>.Filter.Eq(c => c.Id, id);
 
             if (dto.CategoryName != null &&
-                dto.CategoryName != "" &&
+                dto.CategoryName != string.Empty &&
                 dto.CategoryName != "string" &&
                 dto.CategoryName != category.CategoryName)
                 await _categoryCollection.UpdateOneAsync(filter, Builders<Category>

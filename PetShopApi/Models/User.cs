@@ -14,7 +14,7 @@ namespace PetShopApi.Models
 
         [BsonRequired]
         public DateTime LastUpdated { get; set; }
-        
+
         [BsonRequired]
         public string UserEmail { get; set; } = null!;
 

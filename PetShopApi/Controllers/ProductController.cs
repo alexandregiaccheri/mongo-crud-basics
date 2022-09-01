@@ -53,6 +53,6 @@ namespace PetShopApi.Controllers
             if (result == null)
                 return NotFound();
             return await _productService.UpdateProductAsync(id, product);
-        }        
+        }
     }
 }

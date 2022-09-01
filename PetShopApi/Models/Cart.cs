@@ -10,9 +10,9 @@ namespace PetShopApi.Models
         public string? Id { get; set; }
 
         [BsonRequired]
-        public string ProductId { get; set; } = null!;        
+        public string ProductId { get; set; } = null!;
 
         [BsonRequired]
-        public int ProductQuantity { get; set; }        
+        public int ProductQuantity { get; set; }
     }
 }

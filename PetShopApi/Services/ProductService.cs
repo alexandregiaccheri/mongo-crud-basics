@@ -13,7 +13,7 @@ namespace PetShopApi.Services
         {
             var mongoClient = new MongoClient(mongoDbSettings.Value.ConnectionString);
             var mongoDatabase = mongoClient.GetDatabase(mongoDbSettings.Value.DatabaseName);
-            _productCollection = mongoDatabase.GetCollection<Product>(mongoDbSettings.Value.ProductCollection);                        
+            _productCollection = mongoDatabase.GetCollection<Product>(mongoDbSettings.Value.ProductCollection);
         }
 
         public async Task<Product> CreateProductAsync(Product product)
@@ -56,6 +56,6 @@ namespace PetShopApi.Services
                 .Set(p => p.ProductTitle, product.ProductTitle)
                 .Set(p => p.Stock, product.Stock));
             return await _productCollection.Find(filter).SingleOrDefaultAsync();
-        }        
+        }
     }
 }

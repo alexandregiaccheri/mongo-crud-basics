@@ -20,10 +20,10 @@ namespace PetShopApi.Models
 
         [BsonRequired]
         public DateTime LastUpdated { get; set; }
-        
+
         [BsonRequired]
         public string ProductDescription { get; set; } = null!;
-        
+
         [BsonRequired]
         public string ProductManufacturer { get; set; } = null!;
 

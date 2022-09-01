@@ -23,7 +23,7 @@ namespace PetShopApi.Models
 
         [BsonRequired]
         public string PaymentStatus { get; set; } = null!;
-        
+
         [BsonRequired]
         public Address ShippingAddress { get; set; } = null!;
 

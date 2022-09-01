@@ -1,6 +1,6 @@
+using Microsoft.OpenApi.Models;
 using PetShopApi.Models;
 using PetShopApi.Services;
-using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);

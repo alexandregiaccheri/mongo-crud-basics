@@ -86,8 +86,7 @@ namespace PetShopApi.Controllers
         /// If the payload passes validation, a new slug will be generated to reflect changes.
         /// </remarks>
         /// <param name="id">The id of an existing category. Must be a valid 24 digits hex value.</param>
-        /// <param name="dto">Payload with the new name for the existing category. <br/></param>
-        /// <returns></returns>
+        /// <param name="dto">Payload with the new name for the existing category. <br/></param>       
         [HttpPatch("{id}")]
         public async Task<ActionResult<Category>> UpdateCategory(string id, [FromBody] CategoryDTO dto)
         {
