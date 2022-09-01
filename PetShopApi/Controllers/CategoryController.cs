@@ -14,8 +14,17 @@ namespace PetShopApi.Controllers
         public CategoryController(CategoryService categoryService)
         {
             _categoryService = categoryService;
-        }        
+        }
 
+        /// <summary>
+        /// Creates a new product category.
+        /// </summary>
+        /// <remarks>
+        /// Creates the category and automatically generates a slug based on the category name.
+        /// Creation date and last updated are also automatically resolved.
+        /// </remarks>
+        /// <param name="dto">Payload consisting of only one field, category name, which is required.</param>
+        /// <returns>The newly created Category entry.</returns>
         [HttpPost]
         public async Task<ActionResult<Category>> CreateCategory([FromBody] CategoryDTO dto)
         {
