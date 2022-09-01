@@ -34,6 +34,9 @@ namespace PetShopApi.Models
         public string ProductTitle { get; set; } = null!;
 
         [BsonRequired]
+        public string Slug { get; set; } = null!;
+
+        [BsonRequired]
         public int Stock { get; set; }
     }
 }

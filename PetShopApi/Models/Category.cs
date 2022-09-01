@@ -17,5 +17,8 @@ namespace PetShopApi.Models
 
         [BsonRequired]
         public DateTime LastUpdated { get; set; }
+
+        [BsonRequired]
+        public string Slug { get; set; } = null!;
     }
 }
