@@ -20,8 +20,8 @@ namespace PetShopApi.Controllers
         /// Creates a new product category.
         /// </summary>
         /// <remarks>
-        /// Creates the category and automatically generates a slug based on the category name. <br/>
-        /// Creation date and last updated are also automatically resolved. <br/>
+        /// Creates the category and automatically generates a slug based on the category name.<br/>
+        /// Creation date and last updated are also automatically resolved.<br/>
         /// Returns the newly created category entry.
         /// </remarks>
         /// <param name="dto">Payload consisting of only one field, category name, which is required.</param>       
@@ -45,6 +45,7 @@ namespace PetShopApi.Controllers
             var result = await _categoryService.GetCategoryAsync(id);
             if (result == null)
                 return NotFound();
+
             return Ok(await _categoryService.DeleteCategoryAsync(id));
         }
 
@@ -74,6 +75,7 @@ namespace PetShopApi.Controllers
             var result = await _categoryService.GetCategoryAsync(id);
             if (result == null)
                 return NotFound();
+
             return Ok(result);
         }
 
@@ -81,18 +83,19 @@ namespace PetShopApi.Controllers
         /// Finds and updates a category with a new name.
         /// </summary>
         /// <remarks>
-        /// Returns the updated category or the original category if no changes were made. <br/>
-        /// Changes will only be commited if the payload contains a new (different) name for the category, that is not null, empty or "string". <br/>
+        /// Returns the updated category or the original category if no changes were made.<br/>
+        /// Changes will only be commited if the payload contains a new (different) name for the category.<br/>
         /// If the payload passes validation, a new slug will be generated to reflect changes.
         /// </remarks>
         /// <param name="id">The id of an existing category. Must be a valid 24 digits hex value.</param>
-        /// <param name="dto">Payload with the new name for the existing category. <br/></param>       
+        /// <param name="dto">Payload with the new name for the existing category.<br/></param>       
         [HttpPatch("{id}")]
         public async Task<ActionResult<Category>> UpdateCategory(string id, [FromBody] CategoryDTO dto)
         {
             var category = await _categoryService.GetCategoryAsync(id);
             if (category == null)
                 return NotFound();
+
             return await _categoryService.UpdateCategoryAsync(id, category, dto);
         }
     }

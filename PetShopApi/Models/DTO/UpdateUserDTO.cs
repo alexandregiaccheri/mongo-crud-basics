@@ -1,6 +1,6 @@
 ﻿namespace PetShopApi.Models.DTO
 {
-    public class UserDTO
+    public class UpdateUserDTO
     {
         public string? UserEmail { get; set; }
 

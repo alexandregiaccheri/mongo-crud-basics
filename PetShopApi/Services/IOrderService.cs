@@ -1,8 +1,10 @@
-﻿namespace PetShopApi.Services
+﻿using PetShopApi.Models.DTO;
+
+namespace PetShopApi.Services
 {
     public interface IOrderService<Order>
     {
-        Task<Order> CreateOrderAsync(Order order);
+        Task<Order> CreateOrderAsync(CreateOrderDTO dto);
 
         Task<Order> DeleteOrderAsync(string id);
 
@@ -10,6 +12,6 @@
 
         Task<Order> GetOrderAsync(string id);
 
-        Task<Order> UpdateOrderAsync(string id, Order order);
+        Task<Order> UpdateOrderAsync(string id, Order order, UpdateOrderDTO dto);
     }
 }

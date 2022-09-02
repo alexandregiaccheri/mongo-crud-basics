@@ -1,6 +1,6 @@
 ﻿namespace PetShopApi.Models.DTO
 {
-    public class ProductDTO
+    public class UpdateProductDTO
     {
         public string? CategoryId { get; set; } = null!;
 

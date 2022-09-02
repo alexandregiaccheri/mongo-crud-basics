@@ -18,7 +18,7 @@ namespace PetShopApi.Services
             _productCollection = mongoDatabase.GetCollection<Product>(mongoDbSettings.Value.ProductCollection);
         }
 
-        public async Task<Product> CreateProductAsync(ProductDTO dto)
+        public async Task<Product> CreateProductAsync(CreateProductDTO dto)
         {
             var product = new Product()
             {
@@ -34,6 +34,7 @@ namespace PetShopApi.Services
                       (SlugHelper.GenerateSlug(dto.ProductTitle!)),
                 Stock = (int)dto.Stock!
             };
+
             await _productCollection.InsertOneAsync(product);
             return product;
         }
@@ -57,78 +58,73 @@ namespace PetShopApi.Services
             return await _productCollection.Find(filter).SingleOrDefaultAsync();
         }
 
-        public async Task<Product> UpdateProductAsync(string id, Product product, ProductDTO dto)
+        public async Task<Product> UpdateProductAsync(string id, Product product, UpdateProductDTO dto)
         {
             var filter = Builders<Product>.Filter.Eq(p => p.Id, id);
             var changesWereMade = false;
 
-            if (dto.CategoryId != null &&
-                dto.CategoryId != string.Empty &&
-                dto.CategoryId != "string" &&
-                dto.CategoryId != product.CategoryId)
+            if (!string.IsNullOrEmpty(dto.CategoryId)
+                && dto.CategoryId != product.CategoryId)
             {
                 await _productCollection.UpdateOneAsync(filter, Builders<Product>.Update
                 .Set(p => p.CategoryId, dto.CategoryId));
+
                 changesWereMade = true;
             }
 
-            if (dto.ImgUrl != null &&
-                dto.ImgUrl != string.Empty &&
-                dto.ImgUrl != "string" &&
-                dto.ImgUrl != product.ImgUrl)
+            if (!string.IsNullOrEmpty(dto.ImgUrl)
+                && dto.ImgUrl != product.ImgUrl)
             {
                 await _productCollection.UpdateOneAsync(filter, Builders<Product>.Update
                 .Set(p => p.ImgUrl, dto.ImgUrl));
+
                 changesWereMade = true;
             }
 
-            if (dto.ProductDescription != null &&
-                dto.ProductDescription != string.Empty &&
-                dto.ProductDescription != "string" &&
-                dto.ProductDescription != product.ProductDescription)
+            if (!string.IsNullOrEmpty(dto.ProductDescription)
+                && dto.ProductDescription != product.ProductDescription)
             {
                 await _productCollection.UpdateOneAsync(filter, Builders<Product>.Update
                 .Set(p => p.ProductDescription, dto.ProductDescription));
+
                 changesWereMade = true;
             }
 
-            if (dto.ProductManufacturer != null &&
-                dto.ProductManufacturer != string.Empty &&
-                dto.ProductManufacturer != "string" &&
-                dto.ProductManufacturer != product.ProductManufacturer)
+            if (!string.IsNullOrEmpty(dto.ProductManufacturer)
+                && dto.ProductManufacturer != product.ProductManufacturer)
             {
                 await _productCollection.UpdateOneAsync(filter, Builders<Product>.Update
                 .Set(p => p.ProductManufacturer, dto.ProductManufacturer));
+
                 changesWereMade = true;
             }
 
-            if (dto.ProductPrice != null &&
-                dto.ProductPrice > 0 &&                
-                dto.ProductPrice != product.ProductPrice)
+            if (dto.ProductPrice != null && dto.ProductPrice > 0
+                && dto.ProductPrice != product.ProductPrice)
             {
                 await _productCollection.UpdateOneAsync(filter, Builders<Product>.Update
                 .Set(p => p.ProductPrice, dto.ProductPrice));
+
                 changesWereMade = true;
             }
 
-            if (dto.ProductTitle != null &&
-                dto.ProductTitle != string.Empty &&
-                dto.ProductTitle != "string" &&
-                dto.ProductTitle != product.ProductTitle)
+            if (!string.IsNullOrEmpty(dto.ProductTitle)
+                && dto.ProductTitle != product.ProductTitle)
             {
                 await _productCollection.UpdateOneAsync(filter, Builders<Product>.Update
                 .Set(p => p.ProductTitle, dto.ProductTitle)
                 .Set(p => p.Slug, SlugHelper.RemoveAccent(
                                   SlugHelper.GenerateSlug(dto.ProductTitle))));
+
                 changesWereMade = true;
             }
 
-            if (dto.Stock != null &&
-                dto.Stock >= 0 &&
-                dto.Stock != product.Stock)
+            if (dto.Stock != null && dto.Stock >= 0
+                && dto.Stock != product.Stock)
             {
                 await _productCollection.UpdateOneAsync(filter, Builders<Product>.Update
-                .Set(p => p.ProductPrice, dto.ProductPrice));
+                .Set(p => p.Stock, dto.Stock));
+
                 changesWereMade = true;
             }
 

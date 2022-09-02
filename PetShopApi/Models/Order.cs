@@ -16,7 +16,7 @@ namespace PetShopApi.Models
         public DateTime LastUpdated { get; set; }
 
         [BsonRequired]
-        public List<Cart> OrderItems { get; set; } = null!;
+        public List<Cart> OrderItems { get; set; }
 
         [BsonRequired]
         public string OrderStatus { get; set; } = null!;
@@ -25,9 +25,15 @@ namespace PetShopApi.Models
         public string PaymentStatus { get; set; } = null!;
 
         [BsonRequired]
-        public Address ShippingAddress { get; set; } = null!;
+        public Address ShippingAddress { get; set; }
 
         [BsonRequired]
         public string UserId { get; set; } = null!;
+
+        public Order()
+        {
+            this.OrderItems = new List<Cart>();
+            this.ShippingAddress = new Address();
+        }
     }
 }

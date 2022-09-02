@@ -17,7 +17,7 @@ namespace PetShopApi.Services
             _userCollection = mongoDatabase.GetCollection<User>(mongoDbSettings.Value.UserCollection);
         }
 
-        public async Task<User> CreateUserAsync(UserDTO dto)
+        public async Task<User> CreateUserAsync(CreateUserDTO dto)
         {
             var user = new User()
             {
@@ -27,7 +27,7 @@ namespace PetShopApi.Services
                 UserName = dto.UserName!
             };
             await _userCollection.InsertOneAsync(user);
-            return user;           
+            return user;
         }
 
         public async Task<User> DeleteUserAsync(string id)
@@ -49,28 +49,26 @@ namespace PetShopApi.Services
             return await _userCollection.Find(filter).SingleOrDefaultAsync();
         }
 
-        public async Task<User> UpdateUserAsync(string id, User user, UserDTO dto)
+        public async Task<User> UpdateUserAsync(string id, User user, UpdateUserDTO dto)
         {
             var filter = Builders<User>.Filter.Eq(u => u.Id, id);
             var changesWereMade = false;
 
-            if (dto.UserEmail != null &&
-                dto.UserEmail != string.Empty &&
-                dto.UserEmail != "string" &&
-                dto.UserEmail != user.UserEmail)
+            if (!string.IsNullOrEmpty(dto.UserEmail)
+                && dto.UserEmail != user.UserEmail)
             {
                 await _userCollection.UpdateOneAsync(filter, Builders<User>
                     .Update.Set(u => u.UserEmail, dto.UserEmail));
+
                 changesWereMade = true;
             }
 
-            if (dto.UserName != null &&
-                dto.UserName != string.Empty &&
-                dto.UserName != "string" &&
-                dto.UserName != user.UserName)
+            if (!string.IsNullOrEmpty(dto.UserName)
+                && dto.UserName != user.UserName)
             {
                 await _userCollection.UpdateOneAsync(filter, Builders<User>
                     .Update.Set(u => u.UserName, dto.UserName));
+
                 changesWereMade = true;
             }
 

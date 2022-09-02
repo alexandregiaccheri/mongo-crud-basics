@@ -4,7 +4,7 @@ namespace PetShopApi.Services
 {
     public interface IProductService<Product>
     {
-        Task<Product> CreateProductAsync(ProductDTO dto);
+        Task<Product> CreateProductAsync(CreateProductDTO dto);
 
         Task<Product> DeleteProductAsync(string id);
 
@@ -12,6 +12,6 @@ namespace PetShopApi.Services
 
         Task<Product> GetProductAsync(string id);
 
-        Task<Product> UpdateProductAsync(string id, Product product, ProductDTO dto);
+        Task<Product> UpdateProductAsync(string id, Product product, UpdateProductDTO dto);
     }
 }

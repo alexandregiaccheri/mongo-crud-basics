@@ -20,24 +20,14 @@ namespace PetShopApi.Controllers
         /// Creates a new user.
         /// </summary>
         /// <remarks>
-        /// Creates a new user with email and name. It is not meant for production and does not implement passwords or authentication tokens! <br/>
-        /// Both fields are required and must not be empty, null or "string". <br/>
-        /// Returns the newly created user entry.
+        /// Creates a new user with email and name. It is not meant for production and does not implement passwords or authentication tokens!<br/>
+        /// Both fields are required. Returns the newly created user entry.
         /// </remarks>
-        /// <param name="dto">Payload with name and email. Both are required and must pass through a simple validation or 400 will be returned.</param>        
+        /// <param name="dto">Payload with name and email. Both are required.</param>        
         [HttpPost]
-        public async Task<ActionResult<User>> CreateUser([FromBody] UserDTO dto)
+        public async Task<ActionResult<User>> CreateUser([FromBody] CreateUserDTO dto)
         {
-            if (string.IsNullOrEmpty(dto.UserEmail) || dto.UserEmail == "string" ||
-                string.IsNullOrEmpty(dto.UserName) || dto.UserName == "string")
-            {
-                return BadRequest();
-            }
-
-            else
-            {
-                return Ok(await _userService.CreateUserAsync(dto));
-            }
+            return Ok(await _userService.CreateUserAsync(dto));
         }
 
         /// <summary>
@@ -54,6 +44,7 @@ namespace PetShopApi.Controllers
             var result = await _userService.GetUserAsync(id);
             if (result == null)
                 return NotFound();
+
             return Ok(await _userService.DeleteUserAsync(id));
         }
 
@@ -83,6 +74,7 @@ namespace PetShopApi.Controllers
             var result = await _userService.GetUserAsync(id);
             if (result == null)
                 return NotFound();
+
             return Ok(result);
         }
 
@@ -90,17 +82,18 @@ namespace PetShopApi.Controllers
         /// Finds and updates an user with new attributes.
         /// </summary>
         /// <remarks>
-        /// Returns the updated user or the original user if no changes were made. <br/>
-        /// Changes will only be commited if the payload contains a new (different) value for at least one property, and it must not be null, empty or "string". <br/>        
+        /// Returns the updated user or the original user if no changes were made.<br/>
+        /// Changes will only be commited if the payload contains a new (different) value for AT LEAST one property.<br/>        
         /// </remarks>
         /// <param name="id">The id of an existing user. Must be a valid 24 digits hex value.</param>
-        /// <param name="dto">Payload with the new values for the existing user. <br/></param>       
+        /// <param name="dto">Payload with the new values for the existing user.<br/></param>       
         [HttpPatch("{id}")]
-        public async Task<ActionResult<User>> UpdateUser(string id, [FromBody] UserDTO dto)
+        public async Task<ActionResult<User>> UpdateUser(string id, [FromBody] UpdateUserDTO dto)
         {
             var user = await _userService.GetUserAsync(id);
             if (user == null)
                 return NotFound();
+
             return Ok(await _userService.UpdateUserAsync(id, user, dto));
         }
     }
