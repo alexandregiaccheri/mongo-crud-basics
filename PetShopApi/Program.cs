@@ -13,7 +13,7 @@ builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddControllers();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(s =>
 {
@@ -36,13 +36,6 @@ app.UseSwaggerUI(s =>
 {
     s.SwaggerEndpoint("v1/swagger.json", "Pet Shop API");
 });
-
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
 
 app.UseHttpsRedirection();
 
