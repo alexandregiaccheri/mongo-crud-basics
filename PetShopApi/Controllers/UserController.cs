@@ -28,10 +28,12 @@ namespace PetShopApi.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser([FromBody] UserDTO dto)
         {
-            if (dto.UserEmail == null || dto.UserName == null ||
-                dto.UserEmail == string.Empty || dto.UserName == string.Empty ||
-                dto.UserEmail == "string" || dto.UserName == "string")
+            if (string.IsNullOrEmpty(dto.UserEmail) || dto.UserEmail == "string" ||
+                string.IsNullOrEmpty(dto.UserName) || dto.UserName == "string")
+            {
                 return BadRequest();
+            }
+
             else
             {
                 return Ok(await _userService.CreateUserAsync(dto));
