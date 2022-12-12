@@ -1,5 +1,5 @@
 # E-commerce (Pet Shop) API
-Back-end para uma loja (e-commerce) do setor de Pet Shop. API ASP.NET integrando com banco de dados NoSQL (MongoDB).
+Back-end para um e-commerce. Criei essa API ASP.NET CRUD para aprender a utilizar MongoDB no ecossistema .NET.
 
 Link SwaggerUI versão live: https://petshopapi.azurewebsites.net/swagger/index.html
 
